@@ -13,6 +13,7 @@ export const Carousel = ({ products }: Props) => {
   const [current, setCurrent] = useState<number>(0);
 
   useEffect(() => {
+    if (products.length === 0) return;
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % products.length);
     }, 3000);
@@ -20,7 +21,21 @@ export const Carousel = ({ products }: Props) => {
     return () => clearInterval(interval);
   }, [products.length]);
 
+  if (products.length === 0) {
+    return (
+      <Card className="relative overflow-hidden rounded-lg shadow-md border-gray-300">
+        <CardContent className="p-8 text-center">
+          <p className="text-gray-500">Няма налични продукти</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
   const currentProduct = products[current];
+
+  if (!currentProduct) {
+    return null;
+  }
 
   const price = currentProduct.default_price as Stripe.Price;
 
@@ -43,7 +58,7 @@ export const Carousel = ({ products }: Props) => {
         </CardTitle>
         {price && price.unit_amount && (
           <p className="text-xl text-white">
-            ${(price.unit_amount / 100).toFixed(2)}
+            {(price.unit_amount / 100).toFixed(2)} лв.
           </p>
         )}
       </CardContent>

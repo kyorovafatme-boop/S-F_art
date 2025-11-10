@@ -3,8 +3,8 @@ import "./globals.css";
 import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
-  title: "MyStore",
-  description: "Buy cool products",
+  title: "Моят магазин",
+  description: "Купувайте качествени продукти",
 };
 
 export default function RootLayout({
@@ -13,7 +13,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="bg">
       <body className="flex min-h-full flex-col bg-white">
         <Navbar />
         <main className="flex-grow container mx-auto px-4 py-8">
