@@ -31,7 +31,7 @@ export const checkoutAction = async (formData: FormData): Promise<void> => {
     line_items,
     mode: "payment",
     success_url: `${baseUrl}/success`,
-    cancel_url: `${baseUrl}/checkout/payment`,
+    cancel_url: `${baseUrl}/cancel`,
   });
 
   redirect(session.url!);

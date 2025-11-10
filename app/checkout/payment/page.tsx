@@ -51,11 +51,14 @@ export default function PaymentPage() {
       <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <Card>
           <CardHeader>
-            <CardTitle className="text-xl font-bold">Данни за доставка</CardTitle>
+            <CardTitle className="text-xl font-bold">
+              Данни за доставка
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <p>
-              <strong>Име:</strong> {shippingData.firstName} {shippingData.lastName}
+              <strong>Име:</strong> {shippingData.firstName}{" "}
+              {shippingData.lastName}
             </p>
             <p>
               <strong>Имейл:</strong> {shippingData.email}
@@ -82,10 +85,14 @@ export default function PaymentPage() {
           <CardContent>
             <ul className="space-y-3 mb-4">
               {items.map((item) => (
-                <li key={item.id} className="flex justify-between border-b pb-2">
+                <li
+                  key={item.id}
+                  className="flex justify-between border-b pb-2"
+                >
                   <span className="font-medium">{item.name}</span>
                   <span className="font-semibold">
-                    {item.quantity} x {((item.price * item.quantity) / 100).toFixed(2)} лв.
+                    {item.quantity} x{" "}
+                    {((item.price * item.quantity) / 100).toFixed(2)} лв.
                   </span>
                 </li>
               ))}
@@ -93,12 +100,14 @@ export default function PaymentPage() {
             <div className="mt-4 border-t pt-2 text-lg font-semibold mb-4">
               Общо: {(total / 100).toFixed(2)} лв.
             </div>
-            <form action={checkoutAction}>
-              <input
-                type="hidden"
-                name="items"
-                value={JSON.stringify(items)}
-              />
+            <form
+              action={checkoutAction}
+              onSubmit={(e) => {
+                // Save items to sessionStorage before redirecting to Stripe
+                sessionStorage.setItem("orderItems", JSON.stringify(items));
+              }}
+            >
+              <input type="hidden" name="items" value={JSON.stringify(items)} />
               <input
                 type="hidden"
                 name="shippingData"
@@ -114,4 +123,3 @@ export default function PaymentPage() {
     </div>
   );
 }
-
