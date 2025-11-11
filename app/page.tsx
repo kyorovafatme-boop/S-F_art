@@ -30,19 +30,16 @@ export default async function Home() {
               </Link>
             </Button>
           </div>
-          {products.data && products.data.length > 0 && products.data[0].images && products.data[0].images.length > 0 ? (
+          <div className="flex items-center justify-center">
             <Image
-              alt="Главно изображение"
-              src={products.data[0].images[0]}
-              className="rounded-3xl shadow-2xl border-4 border-pink-200"
+              alt="S&F Art Logo"
+              src="/sf_art_logo.webp"
+              className="rounded-3xl shadow-2xl border-4 border-pink-200 bg-white p-4"
               width={450}
               height={450}
+              priority
             />
-          ) : (
-            <div className="flex items-center justify-center w-[450px] h-[450px] bg-gradient-to-br from-pink-100 to-purple-100 rounded-3xl border-4 border-pink-200">
-              <p className="text-gray-500 text-lg">Няма налично изображение</p>
-            </div>
-          )}
+          </div>
         </div>
       </section>
     </div>
