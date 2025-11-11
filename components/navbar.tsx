@@ -67,6 +67,13 @@ export const Navbar = () => {
             Продукти
           </Link>
           <Link
+            href="/checkout"
+            className="text-pink-400 hover:text-pink-500 transition-colors font-medium flex items-center gap-2"
+          >
+            <ShoppingCartIcon className="h-5 w-5" />
+            Моята количка
+          </Link>
+          <Link
             href="/about"
             className="text-pink-400 hover:text-pink-500 transition-colors font-medium flex items-center gap-2"
           >
@@ -167,6 +174,16 @@ export const Navbar = () => {
               >
                 <ShoppingBagIcon className="h-5 w-5" />
                 Продукти
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/checkout"
+                className="block text-pink-400 hover:text-pink-500 transition-colors font-medium py-2 rounded-lg hover:bg-pink-100 px-3 flex items-center gap-2"
+                onClick={() => setMobileOpen(false)}
+              >
+                <ShoppingCartIcon className="h-5 w-5" />
+                Моята количка
               </Link>
             </li>
             <li>

@@ -67,9 +67,10 @@ export const ProductCard = ({ product }: Props) => {
         </CardHeader>
       </Link>
       <CardContent className="p-3 flex-grow flex flex-col justify-between bg-white">
-        <div className="flex flex-col gap-2">
+        <div></div>
+        <div className="flex flex-col gap-1">
           {price && price.unit_amount && (
-            <p className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent text-right mb-1">
+            <p className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent text-right mb-0">
               {(price.unit_amount / 100).toFixed(2)} лв.
             </p>
           )}

@@ -2,9 +2,11 @@
 
 import Stripe from "stripe";
 import Image from "next/image";
+import Link from "next/link";
 import { Button } from "./ui/button";
 import { useCartStore } from "@/store/cart-store";
 import { useState } from "react";
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 
 interface Props {
   product: Stripe.Product;
@@ -63,10 +65,20 @@ export const ProductDetail = ({ product }: Props) => {
             {(price.unit_amount / 100).toFixed(2)} лв.
           </p>
         )}
-        <div className="relative">
+        <div className="flex gap-4 items-center">
+          <Button
+            asChild
+            variant="outline"
+            className="rounded-full border-2 border-pink-300 text-pink-400 hover:bg-pink-50 transition-all px-6 py-4 text-lg font-semibold flex items-center gap-2"
+          >
+            <Link href="/products">
+              <ArrowLeftIcon className="h-5 w-5" />
+              Назад
+            </Link>
+          </Button>
           <Button 
             onClick={onAddItem} 
-            className={`bg-pink-400 text-white hover:bg-pink-500 rounded-full px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all ${
+            className={`bg-pink-400 text-white hover:bg-pink-500 rounded-full px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all flex-1 ${
               isAnimating ? 'scale-95' : 'transform hover:scale-105'
             }`}
           >
