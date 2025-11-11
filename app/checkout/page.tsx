@@ -15,23 +15,31 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-3xl font-bold mb-4">Вашата количка е празна</h1>
+      <div className="pb-8">
+        <h1 className="text-3xl font-bold leading-none tracking-tight bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent text-center mb-8">
+          Моята Количка
+        </h1>
+        <div className="text-center">
+          <p className="text-gray-700">Вашата количка е празна</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Количка</h1>
-      <Card className="max-w-md mx-auto mb-8">
+    <div className="pb-8">
+      <h1 className="text-3xl font-bold leading-none tracking-tight bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent text-center mb-8">
+        Моята Количка
+      </h1>
+      <div className="container mx-auto px-4">
+        <Card className="max-w-md mx-auto mb-8 border-2 border-pink-200">
         <CardHeader>
           <CardTitle className="text-xl font-bold">Резюме на поръчката</CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-4">
             {items.map((item) => (
-              <li key={item.id} className="flex flex-col gap-2 border-b pb-2">
+              <li key={item.id} className="flex flex-col gap-2 border-b border-pink-200 pb-2">
                 <div className="flex justify-between">
                   <span className="font-medium">{item.name}</span>
                   <span className="font-semibold">
@@ -43,6 +51,7 @@ export default function CheckoutPage() {
                     variant="outline"
                     size="sm"
                     onClick={() => removeItem(item.id)}
+                    className="border-2 border-pink-300 text-pink-400 hover:bg-pink-50"
                   >
                     –
                   </Button>
@@ -51,6 +60,7 @@ export default function CheckoutPage() {
                     variant="outline"
                     size="sm"
                     onClick={() => addItem({ ...item, quantity: 1 })}
+                    className="border-2 border-pink-300 text-pink-400 hover:bg-pink-50"
                   >
                     +
                   </Button>
@@ -58,19 +68,19 @@ export default function CheckoutPage() {
               </li>
             ))}
           </ul>
-          <div className="mt-4 border-t pt-2 text-lg font-semibold">
+          <div className="mt-4 border-t border-pink-200 pt-2 text-lg font-semibold">
             Общо: {(total / 100).toFixed(2)} лв.
           </div>
         </CardContent>
       </Card>
-      <div className="max-w-md mx-auto">
-        <Button
-          onClick={() => router.push("/checkout/shipping")}
-          variant="default"
-          className="w-full"
-        >
-          Продължи към доставка
-        </Button>
+        <div className="max-w-md mx-auto">
+          <Button
+            onClick={() => router.push("/checkout/shipping")}
+            className="w-full bg-pink-400 text-white hover:bg-pink-500 rounded-full shadow-md hover:shadow-lg transition-all"
+          >
+            Продължи към доставка
+          </Button>
+        </div>
       </div>
     </div>
   );

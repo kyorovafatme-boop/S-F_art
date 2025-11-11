@@ -8,10 +8,10 @@ import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto md:px-4 py-6 max-w-6xl">
-      <div className="text-center mb-6 px-4 md:px-0">
-        <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">За Нас</h1>
-      </div>
+    <div className="container mx-auto md:px-4 py-2 max-w-6xl">
+      <h1 className="text-3xl font-bold leading-none tracking-tight bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent text-center mb-8">
+        За Нас
+      </h1>
       
       <div className="relative md:rounded-3xl overflow-hidden shadow-2xl mb-6 min-h-[600px]">
         {/* Background Image */}
