@@ -4,27 +4,64 @@ import {
   EnvelopeIcon,
   PhoneIcon,
 } from "@heroicons/react/24/outline";
+import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-12 max-w-4xl">
-      <div className="text-center mb-12 bg-gradient-to-br from-pink-50 via-purple-50 to-pink-100 p-8 rounded-3xl border-2 border-pink-200 shadow-lg">
-        <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">За Нас</h1>
-        <p className="text-lg text-gray-700 leading-relaxed">
-          Здравейте! S&F Art произвеждаме керамични изделия, като ги изпращаме по Еконт.
-        </p>
+    <div className="container mx-auto px-4 py-12 max-w-6xl">
+      <div className="text-center mb-12">
+        <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">За Нас</h1>
+      </div>
+      
+      <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-12 min-h-[600px]">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/AboutUs.webp"
+            alt="За Нас"
+            fill
+            className="object-cover"
+            priority
+            unoptimized
+          />
+          {/* Overlay for better text readability - more saturated */}
+          <div className="absolute inset-0 bg-gradient-to-br from-pink-50/50 via-rose-50/50 to-orange-50/50"></div>
+        </div>
+        
+        {/* Content Card */}
+        <div className="relative z-10 p-8 md:p-12 flex items-center justify-center min-h-[600px]">
+          <div className="bg-gradient-to-br from-pink-200/80 via-rose-200/80 to-orange-200/80 backdrop-blur-sm p-8 md:p-12 rounded-3xl border-2 border-pink-300/50 shadow-xl max-w-4xl w-full">
+            <div className="text-lg text-gray-800 leading-relaxed space-y-5">
+              <p>
+                Всичко започна с желание да внесем повече уют и смисъл в ежедневието.
+              </p>
+              <p>
+                Първата лампа беше направена за близък човек — с любимите му цветове и малко фантазия.
+              </p>
+              <p>
+                Оттогава създаваме лампи, които говорят без думи — подаръци с послание, спомени, запечатани в светлина.
+              </p>
+              <p>
+                Всеки модел е уникален, създаден по идея на клиента и изработен с внимание към всеки детайл.
+              </p>
+              <p className="italic">
+                Защото за нас това не е просто продукт, а начин да дадем частица светлина от нас на вас.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="mt-16">
-        <h2 className="text-3xl font-semibold mb-8 text-center bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">Свържете се с нас</h2>
+        <h2 className="text-3xl font-semibold mb-8 text-center bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">Свържете се с нас</h2>
         <div className="flex flex-wrap justify-center items-center gap-8">
           {/* Email */}
           <a
             href="mailto:s_fart@abv.bg"
-            className="flex flex-col items-center gap-2 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-purple-50 border-2 border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all transform hover:scale-105"
+            className="flex flex-col items-center gap-2 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-orange-50 border-2 border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all transform hover:scale-105"
             aria-label="Имейл"
           >
-            <EnvelopeIcon className="h-10 w-10 text-pink-600" />
+            <EnvelopeIcon className="h-10 w-10 text-pink-400" />
             <span className="text-sm text-gray-700 font-medium">s_fart@abv.bg</span>
           </a>
 
@@ -33,11 +70,11 @@ export default function AboutPage() {
             href="https://www.facebook.com/share/1BH1LU1GvJ"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center gap-2 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-purple-50 border-2 border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all transform hover:scale-105"
+            className="flex flex-col items-center gap-2 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-orange-50 border-2 border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all transform hover:scale-105"
             aria-label="Facebook"
           >
             <svg
-              className="h-10 w-10 text-pink-600"
+              className="h-10 w-10 text-pink-400"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -56,11 +93,11 @@ export default function AboutPage() {
             href="https://www.instagram.com/s_f_art/"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center gap-2 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-purple-50 border-2 border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all transform hover:scale-105"
+            className="flex flex-col items-center gap-2 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-orange-50 border-2 border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all transform hover:scale-105"
             aria-label="Instagram"
           >
             <svg
-              className="h-10 w-10 text-pink-600"
+              className="h-10 w-10 text-pink-400"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -77,10 +114,10 @@ export default function AboutPage() {
           {/* Phone */}
           <a
             href="tel:+359899037420"
-            className="flex flex-col items-center gap-2 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-purple-50 border-2 border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all transform hover:scale-105"
+            className="flex flex-col items-center gap-2 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-orange-50 border-2 border-pink-200 hover:border-pink-400 hover:shadow-lg transition-all transform hover:scale-105"
             aria-label="Телефон"
           >
-            <PhoneIcon className="h-10 w-10 text-pink-600" />
+            <PhoneIcon className="h-10 w-10 text-pink-400" />
             <span className="text-sm text-gray-700 font-medium">0899037420</span>
           </a>
         </div>

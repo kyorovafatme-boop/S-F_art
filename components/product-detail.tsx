@@ -36,19 +36,19 @@ export const ProductDetail = ({ product }: Props) => {
           />
         </div>
       )}
-      <div className="md:w-1/2 space-y-6 bg-gradient-to-br from-pink-50 to-purple-50 p-8 rounded-3xl border-2 border-pink-200 shadow-lg">
-        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">{product.name}</h1>
+      <div className="md:w-1/2 space-y-6 bg-gradient-to-br from-pink-50 to-orange-50 p-8 rounded-3xl border-2 border-pink-200 shadow-lg">
+        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">{product.name}</h1>
         {product.description && (
           <p className="text-gray-700 mb-4 text-lg leading-relaxed">{product.description}</p>
         )}
         {price && price.unit_amount && (
-          <p className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+          <p className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">
             {(price.unit_amount / 100).toFixed(2)} лв.
           </p>
         )}
         <Button 
           onClick={onAddItem} 
-          className="bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:from-pink-600 hover:to-purple-600 rounded-full px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+          className="bg-gradient-to-r from-pink-400 to-orange-300 text-white hover:from-pink-500 hover:to-orange-400 rounded-full px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
         >
           Добави в количката
         </Button>

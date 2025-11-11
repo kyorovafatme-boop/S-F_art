@@ -54,21 +54,21 @@ export const ProductCard = ({ product }: Props) => {
             <p className="text-gray-600 text-sm mb-2">{product.description}</p>
           )}
           {price && price.unit_amount && (
-            <p className="text-2xl font-bold bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+            <p className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">
               {(price.unit_amount / 100).toFixed(2)} лв.
             </p>
           )}
           <div className="mt-4 flex gap-2">
             <Button 
               onClick={onAddToCart} 
-              className="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:from-pink-600 hover:to-purple-600 rounded-full shadow-md hover:shadow-lg transition-all transform hover:scale-105"
+              className="flex-1 bg-gradient-to-r from-pink-400 to-orange-300 text-white hover:from-pink-500 hover:to-orange-400 rounded-full shadow-md hover:shadow-lg transition-all transform hover:scale-105"
             >
               Добави в количката
             </Button>
             <Button 
               asChild 
               variant="outline" 
-              className="flex-1 rounded-full border-2 border-pink-300 text-pink-600 hover:bg-pink-50 transition-all"
+              className="flex-1 rounded-full border-2 border-pink-300 text-pink-400 hover:bg-pink-50 transition-all"
             >
               <Link href={`/products/${product.id}`}>Виж детайли</Link>
             </Button>

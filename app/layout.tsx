@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
+import { Bubblegum_Sans } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/navbar";
+
+const bubblegumSans = Bubblegum_Sans({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-bubblegum-sans",
+});
 
 export const metadata: Metadata = {
   title: "S&F Art",
@@ -39,8 +47,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="bg">
-      <body className="flex min-h-full flex-col bg-white">
+    <html lang="bg" className={bubblegumSans.variable}>
+      <body
+        className={`${bubblegumSans.className} flex min-h-full flex-col bg-white`}
+      >
         <Navbar />
         <main className="flex-grow container mx-auto px-4 py-8">
           {children}
