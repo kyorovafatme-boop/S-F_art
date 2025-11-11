@@ -128,25 +128,59 @@ export default function SuccessPage() {
   }, []); // Empty dependency array - run only once
 
   return (
-    <div className="container mx-auto px-4 py-8 text-center">
-      <h1 className="text-3xl font-bold mb-4">Плащането е успешно!</h1>
-      <p className="mb-4">
-        Благодарим за покупката. Вашата поръчка се обработва.
-      </p>
+    <div className="container mx-auto px-4 py-12 max-w-3xl">
+      <div className="text-center mb-8">
+        <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">
+          Плащането е успешно!
+        </h1>
+      </div>
+
+      <div className="bg-gradient-to-br from-pink-50 via-rose-50 to-orange-50 p-8 md:p-12 rounded-3xl border-2 border-pink-200 shadow-lg">
+        <div className="space-y-6 text-lg text-gray-700 leading-relaxed text-center">
+          <p className="text-2xl font-semibold text-gray-800 mb-6">
+            Благодарим ви за покупката.
+          </p>
+          <p>В кратък срок ще се свържем с вас.</p>
+          <p>
+            Ако имате проблеми или забавяне пишете на{" "}
+            <a
+              href="mailto:s_fart@abv.bg"
+              className="text-pink-600 hover:text-pink-700 font-medium underline transition-colors"
+            >
+              s_fart@abv.bg
+            </a>{" "}
+            или се обадете на{" "}
+            <a
+              href="tel:+359899037420"
+              className="text-pink-600 hover:text-pink-700 font-medium underline transition-colors"
+            >
+              0899037420
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+
       {emailSent && (
-        <p className="mb-4 text-green-600">
+        <div className="mt-6 p-4 bg-green-50 border-2 border-green-200 rounded-2xl text-green-700 text-center">
           Имейл с детайли за поръчката е изпратен успешно.
-        </p>
+        </div>
       )}
       {emailError && (
-        <p className="mb-4 text-yellow-600">
+        <div className="mt-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-2xl text-yellow-700 text-center">
           Поръчката е успешна, но има проблем с изпращането на имейл. Моля,
           свържете се с нас.
-        </p>
+        </div>
       )}
-      <Link href="/products" className="text-blue-600 hover:underline">
-        Продължи с пазаруването
-      </Link>
+
+      <div className="mt-8 text-center">
+        <Link
+          href="/products"
+          className="inline-flex items-center justify-center rounded-full px-8 py-4 bg-gradient-to-r from-pink-400 to-orange-300 text-white hover:from-pink-500 hover:to-orange-400 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 text-lg font-semibold"
+        >
+          Продължи с пазаруването
+        </Link>
+      </div>
     </div>
   );
 }
