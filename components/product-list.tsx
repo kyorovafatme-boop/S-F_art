@@ -2,38 +2,189 @@
 
 import Stripe from "stripe";
 import { ProductCard } from "./product-card";
-import { useState } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { ArrowsUpDownIcon } from "@heroicons/react/24/outline";
+import { Button } from "./ui/button";
 
 interface Props {
   products: Stripe.Product[];
 }
 
+type SortOption = "default" | "price-asc" | "price-desc" | "name-asc" | "name-desc";
+
 export const ProductList = ({ products }: Props) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [sortOption, setSortOption] = useState<SortOption>("default");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const filteredProduct = products.filter((product) => {
-    const term = searchTerm.toLowerCase();
-    const nameMatch = product.name.toLowerCase().includes(term);
-    const descriptionMatch = product.description
-      ? product.description.toLowerCase().includes(term)
-      : false;
+  // Затваряне на dropdown при клик извън него
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
 
-    return nameMatch || descriptionMatch;
-  });
+    if (isDropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+
+  const getSortLabel = (option: SortOption) => {
+    switch (option) {
+      case "default":
+        return "Подредба";
+      case "price-asc":
+        return "Цена ↑";
+      case "price-desc":
+        return "Цена ↓";
+      case "name-asc":
+        return "Име А-Я";
+      case "name-desc":
+        return "Име Я-А";
+      default:
+        return "Подредба";
+    }
+  };
+
+  const filteredAndSortedProducts = useMemo(() => {
+    // Филтриране
+    let filtered = products.filter((product) => {
+      const term = searchTerm.toLowerCase();
+      const nameMatch = product.name.toLowerCase().includes(term);
+      const descriptionMatch = product.description
+        ? product.description.toLowerCase().includes(term)
+        : false;
+
+      return nameMatch || descriptionMatch;
+    });
+
+    // Сортиране
+    if (sortOption === "price-asc") {
+      filtered = [...filtered].sort((a, b) => {
+        const priceA = (a.default_price as Stripe.Price)?.unit_amount || 0;
+        const priceB = (b.default_price as Stripe.Price)?.unit_amount || 0;
+        return priceA - priceB;
+      });
+    } else if (sortOption === "price-desc") {
+      filtered = [...filtered].sort((a, b) => {
+        const priceA = (a.default_price as Stripe.Price)?.unit_amount || 0;
+        const priceB = (b.default_price as Stripe.Price)?.unit_amount || 0;
+        return priceB - priceA;
+      });
+    } else if (sortOption === "name-asc") {
+      filtered = [...filtered].sort((a, b) => {
+        return a.name.localeCompare(b.name, "bg");
+      });
+    } else if (sortOption === "name-desc") {
+      filtered = [...filtered].sort((a, b) => {
+        return b.name.localeCompare(a.name, "bg");
+      });
+    }
+
+    return filtered;
+  }, [products, searchTerm, sortOption]);
 
   return (
     <div>
-      <div className="mb-6 flex justify-center">
+      <div className="mb-6 flex flex-col sm:flex-row gap-4 justify-center sm:items-center">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Търси продукти..."
-          className="w-full max-w-md rounded border border-gray-300 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full max-w-md rounded-full border-2 border-pink-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-300 bg-white"
         />
+        <div className="relative self-end sm:self-auto" ref={dropdownRef}>
+          <Button
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="bg-pink-400 text-white hover:bg-pink-500 rounded-full shadow-md hover:shadow-lg transition-all px-4 py-2 h-auto gap-2"
+          >
+            <ArrowsUpDownIcon className="h-4 w-4" />
+            <span className="text-sm">{getSortLabel(sortOption)}</span>
+          </Button>
+          <div
+            className={`absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border-2 border-pink-200 overflow-hidden z-50 transition-all duration-300 ease-out ${
+              isDropdownOpen
+                ? "opacity-100 translate-y-0 scale-100"
+                : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
+            }`}
+          >
+            <button
+              onClick={() => {
+                setSortOption("default");
+                setIsDropdownOpen(false);
+              }}
+              className={`w-full text-left px-4 py-3 text-sm transition-colors ${
+                sortOption === "default"
+                  ? "bg-pink-100 text-pink-600 font-semibold"
+                  : "text-gray-700 hover:bg-pink-50"
+              }`}
+            >
+              Подредба по подразбиране
+            </button>
+            <button
+              onClick={() => {
+                setSortOption("price-asc");
+                setIsDropdownOpen(false);
+              }}
+              className={`w-full text-left px-4 py-3 text-sm transition-colors border-t border-pink-100 ${
+                sortOption === "price-asc"
+                  ? "bg-pink-100 text-pink-600 font-semibold"
+                  : "text-gray-700 hover:bg-pink-50"
+              }`}
+            >
+              Цена: Възходящо ↑
+            </button>
+            <button
+              onClick={() => {
+                setSortOption("price-desc");
+                setIsDropdownOpen(false);
+              }}
+              className={`w-full text-left px-4 py-3 text-sm transition-colors border-t border-pink-100 ${
+                sortOption === "price-desc"
+                  ? "bg-pink-100 text-pink-600 font-semibold"
+                  : "text-gray-700 hover:bg-pink-50"
+              }`}
+            >
+              Цена: Низходящо ↓
+            </button>
+            <button
+              onClick={() => {
+                setSortOption("name-asc");
+                setIsDropdownOpen(false);
+              }}
+              className={`w-full text-left px-4 py-3 text-sm transition-colors border-t border-pink-100 ${
+                sortOption === "name-asc"
+                  ? "bg-pink-100 text-pink-600 font-semibold"
+                  : "text-gray-700 hover:bg-pink-50"
+              }`}
+            >
+              Име: А-Я
+            </button>
+            <button
+              onClick={() => {
+                setSortOption("name-desc");
+                setIsDropdownOpen(false);
+              }}
+              className={`w-full text-left px-4 py-3 text-sm transition-colors border-t border-pink-100 ${
+                sortOption === "name-desc"
+                  ? "bg-pink-100 text-pink-600 font-semibold"
+                  : "text-gray-700 hover:bg-pink-50"
+              }`}
+            >
+              Име: Я-А
+            </button>
+          </div>
+        </div>
       </div>
       <ul className="mt-6 grid grid-cols-2 gap-2 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {filteredProduct.map((product, key) => (
+        {filteredAndSortedProducts.map((product, key) => (
           <li key={key}>
             <ProductCard product={product} />
           </li>

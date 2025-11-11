@@ -29,16 +29,16 @@ export const ProductCard = ({ product }: Props) => {
         imageUrl: product.images ? product.images[0] : null,
         quantity: 1,
       });
-      
+
       // Trigger animation
       setIsAnimating(true);
       setIsAdded(true);
-      
+
       // Reset animation after it completes
       setTimeout(() => {
         setIsAnimating(false);
       }, 600);
-      
+
       // Reset added state after showing message
       setTimeout(() => {
         setIsAdded(false);
@@ -48,48 +48,48 @@ export const ProductCard = ({ product }: Props) => {
 
   return (
     <Card className="group hover:shadow-2xl transition-all duration-300 py-0 h-full flex flex-col border-2 border-pink-200 gap-0 rounded-2xl overflow-hidden bg-gradient-to-b from-white to-pink-50 hover:border-pink-300 hover:scale-105">
-        <Link href={`/products/${product.id}`} className="block">
-          {product.images && product.images[0] && (
-            <div className="relative aspect-square w-full overflow-hidden">
-              <Image
-                src={product.images[0]}
-                alt={product.name}
-                layout="fill"
-                objectFit="cover"
-                className="group-hover:opacity-90 transition-opacity duration-300 group-hover:scale-110"
-              />
-            </div>
-          )}
-          <CardHeader className="p-3 bg-gradient-to-b from-pink-50 to-white">
-            <CardTitle className="text-sm font-bold text-gray-800 line-clamp-2">
-              {product.name}
-            </CardTitle>
-          </CardHeader>
-        </Link>
-        <CardContent className="p-3 flex-grow flex flex-col justify-between bg-white">
+      <Link href={`/products/${product.id}`} className="block">
+        {product.images && product.images[0] && (
+          <div className="relative aspect-square w-full overflow-hidden">
+            <Image
+              src={product.images[0]}
+              alt={product.name}
+              layout="fill"
+              objectFit="cover"
+              className="group-hover:opacity-90 transition-opacity duration-300 group-hover:scale-110"
+            />
+          </div>
+        )}
+        <CardHeader className="p-3 bg-gradient-to-b from-pink-50 to-white">
+          <CardTitle className="text-sm font-bold text-gray-800 line-clamp-2">
+            {product.name}
+          </CardTitle>
+        </CardHeader>
+      </Link>
+      <CardContent className="p-3 flex-grow flex flex-col justify-between bg-white">
+        <div className="flex flex-col gap-2">
           {price && price.unit_amount && (
-            <p className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">
+            <p className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent text-right mb-1">
               {(price.unit_amount / 100).toFixed(2)} лв.
             </p>
           )}
-          <div className="mt-4 flex flex-col gap-2">
-            <Button
-              onClick={onAddToCart}
-              className={`w-full bg-pink-400 text-white hover:bg-pink-500 rounded-full shadow-md hover:shadow-lg transition-all ${
-                isAnimating ? 'scale-95' : 'transform hover:scale-105'
-              }`}
-            >
-              {isAdded ? '✓ Добавено!' : 'Добави в количката'}
-            </Button>
-            <Button 
-              asChild 
-              variant="outline" 
-              className="w-full rounded-full border-2 border-pink-300 text-pink-400 hover:bg-pink-50 transition-all"
-            >
-              <Link href={`/products/${product.id}`}>Виж детайли</Link>
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+          <Button
+            onClick={onAddToCart}
+            className={`w-full bg-pink-400 text-white hover:bg-pink-500 rounded-full shadow-md hover:shadow-lg transition-all ${
+              isAnimating ? "scale-95" : "transform hover:scale-105"
+            }`}
+          >
+            {isAdded ? "✓ Добавено!" : "Добави в количката"}
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="w-full rounded-full border-2 border-pink-300 text-pink-400 hover:bg-pink-50 transition-all"
+          >
+            <Link href={`/products/${product.id}`}>Виж детайли</Link>
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

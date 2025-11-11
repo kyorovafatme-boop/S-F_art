@@ -8,12 +8,12 @@ import Image from "next/image";
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-12 max-w-6xl">
-      <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold mb-8 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">За Нас</h1>
+    <div className="container mx-auto md:px-4 py-6 max-w-6xl">
+      <div className="text-center mb-6 px-4 md:px-0">
+        <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">За Нас</h1>
       </div>
       
-      <div className="relative rounded-3xl overflow-hidden shadow-2xl mb-12 min-h-[600px]">
+      <div className="relative md:rounded-3xl overflow-hidden shadow-2xl mb-6 min-h-[600px]">
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
@@ -29,9 +29,9 @@ export default function AboutPage() {
         </div>
         
         {/* Content Card */}
-        <div className="relative z-10 p-8 md:p-12 flex items-center justify-center min-h-[600px]">
-          <div className="bg-gradient-to-br from-pink-200/80 via-rose-200/80 to-orange-200/80 backdrop-blur-sm p-8 md:p-12 rounded-3xl border-2 border-pink-300/50 shadow-xl max-w-4xl w-full">
-            <div className="text-lg text-gray-800 leading-relaxed space-y-5 text-justify">
+        <div className="relative z-10 p-4 md:p-8 flex items-center justify-center min-h-[600px]">
+          <div className="bg-gradient-to-br from-pink-200/60 via-rose-200/60 to-orange-200/60 backdrop-blur-sm p-4 md:p-8 rounded-2xl md:rounded-3xl border-2 border-pink-300/50 shadow-xl max-w-4xl w-full md:w-auto">
+            <div className="text-lg text-gray-800 leading-relaxed space-y-3 text-left md:text-justify italic font-serif">
               <p>
                 Всичко започна с желание да внесем повече уют и смисъл в ежедневието.
               </p>
@@ -44,7 +44,7 @@ export default function AboutPage() {
               <p>
                 Всеки модел е уникален, създаден по идея на клиента и изработен с внимание към всеки детайл.
               </p>
-              <p className="italic">
+              <p>
                 Защото за нас това не е просто продукт, а начин да дадем частица светлина от нас на вас.
               </p>
             </div>

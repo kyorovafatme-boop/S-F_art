@@ -5,8 +5,6 @@ import Image from "next/image";
 import { Button } from "./ui/button";
 import { useCartStore } from "@/store/cart-store";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 interface Props {
   product: Stripe.Product;
@@ -14,7 +12,6 @@ interface Props {
 
 export const ProductDetail = ({ product }: Props) => {
   const { addItem } = useCartStore();
-  const router = useRouter();
   const price = product.default_price as Stripe.Price;
   const [isAdded, setIsAdded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -37,53 +34,44 @@ export const ProductDetail = ({ product }: Props) => {
       setIsAnimating(false);
     }, 600);
     
-    // Redirect to products page after showing message
+    // Reset added state after showing message
     setTimeout(() => {
-      router.push("/products");
-    }, 1000);
+      setIsAdded(false);
+    }, 2000);
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="flex flex-col md:flex-row gap-8 items-center">
-        {product.images && product.images[0] && (
-          <div className="relative h-96 w-full md:w-1/2 rounded-3xl overflow-hidden shadow-2xl border-4 border-pink-200">
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              layout="fill"
-              objectFit="cover"
-              className="transition duration-300 hover:opacity-90 hover:scale-110"
-            />
-          </div>
+    <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8 items-center">
+      {product.images && product.images[0] && (
+        <div className="relative h-96 w-full md:w-1/2 rounded-3xl overflow-hidden shadow-2xl border-4 border-pink-200">
+          <Image
+            src={product.images[0]}
+            alt={product.name}
+            layout="fill"
+            objectFit="cover"
+            className="transition duration-300 hover:opacity-90 hover:scale-110"
+          />
+        </div>
+      )}
+      <div className="md:w-1/2 space-y-6 bg-gradient-to-br from-pink-50 to-orange-50 p-8 rounded-3xl border-2 border-pink-200 shadow-lg">
+        <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">{product.name}</h1>
+        {product.description && (
+          <p className="text-gray-700 mb-4 text-lg leading-relaxed">{product.description}</p>
         )}
-        <div className="md:w-1/2 space-y-6 bg-gradient-to-br from-pink-50 to-orange-50 p-8 rounded-3xl border-2 border-pink-200 shadow-lg">
-          <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">{product.name}</h1>
-          {product.description && (
-            <p className="text-gray-700 mb-4 text-lg leading-relaxed">{product.description}</p>
-          )}
-          {price && price.unit_amount && (
-            <p className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">
-              {(price.unit_amount / 100).toFixed(2)} лв.
-            </p>
-          )}
-          <div className="flex gap-4 items-center">
-            <Button 
-              onClick={onAddItem} 
-              className={`bg-pink-400 text-white hover:bg-pink-500 rounded-full px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all ${
-                isAnimating ? 'scale-95' : 'transform hover:scale-105'
-              }`}
-            >
-              {isAdded ? '✓ Добавено!' : 'Добави в количката'}
-            </Button>
-            <Button
-              onClick={() => router.push("/products")}
-              variant="outline"
-              className="border-2 border-pink-300 text-pink-600 hover:bg-pink-50 rounded-full px-6 py-4 text-lg font-semibold"
-            >
-              ← Назад
-            </Button>
-          </div>
+        {price && price.unit_amount && (
+          <p className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">
+            {(price.unit_amount / 100).toFixed(2)} лв.
+          </p>
+        )}
+        <div className="relative">
+          <Button 
+            onClick={onAddItem} 
+            className={`bg-pink-400 text-white hover:bg-pink-500 rounded-full px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all ${
+              isAnimating ? 'scale-95' : 'transform hover:scale-105'
+            }`}
+          >
+            {isAdded ? '✓ Добавено!' : 'Добави в количката'}
+          </Button>
         </div>
       </div>
     </div>
