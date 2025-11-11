@@ -71,7 +71,7 @@ export const ProductCard = ({ product }: Props) => {
         <div className="flex flex-col gap-1">
           {price && price.unit_amount && (
             <p className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent text-right mb-0">
-              {(price.unit_amount / 100).toFixed(2)} лв.
+              {(price.unit_amount / 100).toFixed(2)} €
             </p>
           )}
           <Button

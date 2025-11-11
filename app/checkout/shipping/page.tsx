@@ -108,13 +108,13 @@ export default function ShippingPage() {
                 <li key={item.id} className="flex justify-between border-b pb-2">
                   <span className="font-medium">{item.name}</span>
                   <span className="font-semibold">
-                    {item.quantity} x {((item.price * item.quantity) / 100).toFixed(2)} лв.
+                    {item.quantity} x {((item.price * item.quantity) / 100).toFixed(2)} €
                   </span>
                 </li>
               ))}
             </ul>
             <div className="mt-4 border-t pt-2 text-lg font-semibold">
-              Общо: {(total / 100).toFixed(2)} лв.
+              Общо: {(total / 100).toFixed(2)} €
             </div>
           </CardContent>
         </Card>

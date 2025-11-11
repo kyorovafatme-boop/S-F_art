@@ -61,8 +61,8 @@ export const ProductDetail = ({ product }: Props) => {
           <p className="text-gray-700 mb-4 text-lg leading-relaxed">{product.description}</p>
         )}
         {price && price.unit_amount && (
-          <p className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent">
-            {(price.unit_amount / 100).toFixed(2)} лв.
+          <p className="text-3xl font-bold mb-6 bg-gradient-to-r from-pink-400 to-orange-300 bg-clip-text text-transparent text-right">
+            {(price.unit_amount / 100).toFixed(2)} €
           </p>
         )}
         <div className="flex gap-4 items-center">

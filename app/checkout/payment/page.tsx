@@ -134,13 +134,13 @@ export default function PaymentPage() {
                   <span className="font-medium">{item.name}</span>
                   <span className="font-semibold">
                     {item.quantity} x{" "}
-                    {((item.price * item.quantity) / 100).toFixed(2)} лв.
+                    {((item.price * item.quantity) / 100).toFixed(2)} €
                   </span>
                 </li>
               ))}
             </ul>
             <div className="mt-4 border-t pt-2 text-lg font-semibold mb-6">
-              Общо: {(total / 100).toFixed(2)} лв.
+              Общо: {(total / 100).toFixed(2)} €
             </div>
             
             <div className="space-y-4">

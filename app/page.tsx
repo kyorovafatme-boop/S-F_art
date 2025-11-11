@@ -30,11 +30,11 @@ export default async function Home() {
             <Button
               asChild
               variant="default"
-              className="inline-flex items-center justify-center rounded-full px-12 py-6 bg-pink-400 text-white hover:bg-pink-500 shadow-lg hover:shadow-xl transition-all transform hover:scale-105 text-xl font-semibold"
+              className="inline-flex items-center justify-center rounded-full px-12 py-6 bg-pink-400 text-white hover:bg-pink-500 shadow-2xl hover:shadow-2xl transition-all transform hover:scale-105 text-xl font-semibold tracking-wide"
             >
               <Link
                 href="/products"
-                className="inline-flex items-center justify-center rounded-full px-12 py-6"
+                className="inline-flex items-center justify-center rounded-full px-12 py-6 tracking-wide"
               >
                 Разгледай всички продукти
               </Link>

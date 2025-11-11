@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useCartStore } from "@/store/cart-store";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function CheckoutPage() {
   const { items, removeItem, addItem } = useCartStore();
@@ -39,37 +40,49 @@ export default function CheckoutPage() {
         <CardContent>
           <ul className="space-y-4">
             {items.map((item) => (
-              <li key={item.id} className="flex flex-col gap-2 border-b border-pink-200 pb-2">
-                <div className="flex justify-between">
-                  <span className="font-medium">{item.name}</span>
-                  <span className="font-semibold">
-                    {((item.price * item.quantity) / 100).toFixed(2)} лв.
-                  </span>
+              <li key={item.id} className="flex flex-col gap-2 border-b-2 border-pink-200 pb-2 relative">
+                <div className="flex justify-between items-start gap-4">
+                  {item.imageUrl && (
+                    <div className="relative w-16 h-16 rounded-lg overflow-hidden border-2 border-pink-200 flex-shrink-0">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => removeItem(item.id)}
+                      className="border-2 border-pink-300 text-pink-400 hover:bg-pink-50"
+                    >
+                      –
+                    </Button>
+                    <span className="text-lg font-semibold">{item.quantity}</span>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => addItem({ ...item, quantity: 1 })}
+                      className="border-2 border-pink-300 text-pink-400 hover:bg-pink-50"
+                    >
+                      +
+                    </Button>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => removeItem(item.id)}
-                    className="border-2 border-pink-300 text-pink-400 hover:bg-pink-50"
-                  >
-                    –
-                  </Button>
-                  <span className="text-lg font-semibold">{item.quantity}</span>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => addItem({ ...item, quantity: 1 })}
-                    className="border-2 border-pink-300 text-pink-400 hover:bg-pink-50"
-                  >
-                    +
-                  </Button>
+                <div className="flex justify-between items-end">
+                  <span className="font-medium">{item.name}</span>
+                  <span className="font-semibold whitespace-nowrap">
+                    {((item.price * item.quantity) / 100).toFixed(2)} €
+                  </span>
                 </div>
               </li>
             ))}
           </ul>
-          <div className="mt-4 border-t border-pink-200 pt-2 text-lg font-semibold">
-            Общо: {(total / 100).toFixed(2)} лв.
+          <div className="mt-4 border-t border-pink-200 pt-2 text-lg font-semibold text-right">
+            Общо: {(total / 100).toFixed(2)} €
           </div>
         </CardContent>
       </Card>
