@@ -45,8 +45,10 @@ export async function POST(request: Request) {
     // Format products list
     const productsList = items
       .map(
-        (item: any) =>
-          `<li>${item.name} - Количество: ${item.quantity} - Цена: ${(item.price * item.quantity / 100).toFixed(2)} евро.</li>`
+        (item: any) => {
+          const childNameText = item.childName ? ` - Име на детето: ${item.childName}` : '';
+          return `<li>${item.name}${childNameText} - Количество: ${item.quantity} - Цена: ${(item.price * item.quantity / 100).toFixed(2)} евро.</li>`;
+        }
       )
       .join('');
 

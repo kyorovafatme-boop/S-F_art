@@ -73,7 +73,14 @@ export default function CheckoutPage() {
                   </div>
                 </div>
                 <div className="flex justify-between items-end">
-                  <span className="font-medium">{item.name}</span>
+                  <div className="flex flex-col">
+                    <span className="font-medium">{item.name}</span>
+                    {item.childName && (
+                      <span className="text-sm text-pink-600 font-medium">
+                        Име на детето: {item.childName}
+                      </span>
+                    )}
+                  </div>
                   <span className="font-semibold whitespace-nowrap">
                     {((item.price * item.quantity) / 100).toFixed(2)} €
                   </span>

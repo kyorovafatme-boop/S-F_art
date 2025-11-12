@@ -126,16 +126,23 @@ export default function PaymentPage() {
           </CardHeader>
           <CardContent>
             <ul className="space-y-3 mb-4">
-              {items.map((item) => (
+              {items.map((item, index) => (
                 <li
-                  key={item.id}
-                  className="flex justify-between border-b pb-2"
+                  key={`${item.id}-${item.childName || index}`}
+                  className="flex flex-col border-b pb-2"
                 >
-                  <span className="font-medium">{item.name}</span>
-                  <span className="font-semibold">
-                    {item.quantity} x{" "}
-                    {((item.price * item.quantity) / 100).toFixed(2)} €
-                  </span>
+                  <div className="flex justify-between">
+                    <span className="font-medium">{item.name}</span>
+                    <span className="font-semibold">
+                      {item.quantity} x{" "}
+                      {((item.price * item.quantity) / 100).toFixed(2)} €
+                    </span>
+                  </div>
+                  {item.childName && (
+                    <span className="text-sm text-pink-600 font-medium mt-1">
+                      Име на детето: {item.childName}
+                    </span>
+                  )}
                 </li>
               ))}
             </ul>

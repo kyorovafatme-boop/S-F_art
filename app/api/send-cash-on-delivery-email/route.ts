@@ -44,10 +44,10 @@ export async function POST(request: Request) {
 
     // Format products list
     const productsList = items
-      .map(
-        (item: any) =>
-          `<li>${item.name} - Количество: ${item.quantity} - Цена: ${(item.price * item.quantity / 100).toFixed(2)} лв.</li>`
-      )
+      .map((item: any) => {
+        const childNameText = item.childName ? ` - Име на детето: ${item.childName}` : '';
+        return `<li>${item.name}${childNameText} - Количество: ${item.quantity} - Цена: ${(item.price * item.quantity / 100).toFixed(2)} лв.</li>`;
+      })
       .join('');
 
     // Format HTML email
@@ -96,7 +96,7 @@ export async function POST(request: Request) {
 
         <div style="margin-top: 20px; padding: 15px; background-color: #f0f0f0; border-radius: 5px;">
           <p style="margin: 0; font-size: 18px; font-weight: bold; color: #333;">
-            Обща сума: <span style="color: #FF6B35;">${(total / 100).toFixed(2)} лв.</span>
+            Обща сума: <span style="color: #FF6B35;">${(total / 100).toFixed(2)} евро.</span>
           </p>
         </div>
 

@@ -7,6 +7,7 @@ export interface CartItem {
   price: number;
   imageUrl: string | null;
   quantity: number;
+  childName?: string;
 }
 
 interface CartStore {
@@ -22,12 +23,15 @@ export const useCartStore = create<CartStore>()(
       items: [],
       addItem: (item) =>
         set((state) => {
-          const existing = state.items.find((i) => i.id === item.id);
+          // Намираме съществуващ item с същия id И същото име на дете (ако има)
+          const existing = state.items.find(
+            (i) => i.id === item.id && i.childName === item.childName
+          );
 
           if (existing) {
             return {
               items: state.items.map((i) =>
-                i.id === item.id
+                i.id === item.id && i.childName === item.childName
                   ? { ...i, quantity: i.quantity + item.quantity }
                   : i
               ),

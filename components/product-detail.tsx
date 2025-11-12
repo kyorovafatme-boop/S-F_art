@@ -17,6 +17,7 @@ export const ProductDetail = ({ product }: Props) => {
   const price = product.default_price as Stripe.Price;
   const [isAdded, setIsAdded] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [childName, setChildName] = useState<string>("");
 
   const onAddItem = () => {
     addItem({
@@ -25,6 +26,7 @@ export const ProductDetail = ({ product }: Props) => {
       price: price.unit_amount as number,
       imageUrl: product.images ? product.images[0] : null,
       quantity: 1,
+      childName: childName.trim() || undefined,
     });
 
     // Trigger animation
@@ -39,6 +41,7 @@ export const ProductDetail = ({ product }: Props) => {
     // Reset added state after showing message
     setTimeout(() => {
       setIsAdded(false);
+      setChildName(""); // Reset child name after adding
     }, 2000);
   };
 
@@ -81,6 +84,21 @@ export const ProductDetail = ({ product }: Props) => {
             {(price.unit_amount / 100).toFixed(2)} €
           </p>
         )}
+        <div className="space-y-4">
+          <div>
+            <label htmlFor="childName" className="block text-sm font-medium text-gray-700 mb-2">
+              Име на детето (опционално)
+            </label>
+            <input
+              id="childName"
+              type="text"
+              value={childName}
+              onChange={(e) => setChildName(e.target.value)}
+              placeholder="Въведете име на детето"
+              className="w-full rounded-full border-2 border-pink-200 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-pink-300 bg-white"
+            />
+          </div>
+        </div>
         <div className="flex gap-4 items-center">
           <Button
             asChild

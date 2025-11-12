@@ -24,7 +24,7 @@ export const Navbar = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const prevCartCountRef = useRef(cartCount);
   const productsDropdownRef = useRef<HTMLDivElement>(null);
-  const mobileProductsDropdownRef = useRef<HTMLDivElement>(null);
+  const mobileProductsDropdownRef = useRef<HTMLLIElement>(null);
   
   // Получаване само на типовете, за които има продукти
   const availableProductTypes = getAvailableProductTypes();
