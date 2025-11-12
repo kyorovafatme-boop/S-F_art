@@ -16,13 +16,15 @@ interface ShippingData {
   city: string;
   postalCode: string;
   econtOffice: string;
+  comment?: string;
 }
 
 export default function PaymentPage() {
   const { items, clearCart } = useCartStore();
   const router = useRouter();
   const [shippingData, setShippingData] = useState<ShippingData | null>(null);
-  const [isProcessingCashOnDelivery, setIsProcessingCashOnDelivery] = useState(false);
+  const [isProcessingCashOnDelivery, setIsProcessingCashOnDelivery] =
+    useState(false);
 
   useEffect(() => {
     // Get shipping data from sessionStorage
@@ -53,6 +55,7 @@ export default function PaymentPage() {
         city: shippingData.city,
         postalCode: shippingData.postalCode,
         econtOffice: shippingData.econtOffice,
+        comment: shippingData.comment || "",
         items: items,
         total: total,
       };
@@ -73,7 +76,10 @@ export default function PaymentPage() {
       // Redirect to success page with cash on delivery flag
       router.push("/success?payment=cash-on-delivery");
     } catch (error) {
-      console.error("[Payment Page] Error sending cash on delivery email:", error);
+      console.error(
+        "[Payment Page] Error sending cash on delivery email:",
+        error
+      );
       setIsProcessingCashOnDelivery(false);
       alert("Възникна грешка. Моля, опитайте отново.");
     }
@@ -117,6 +123,14 @@ export default function PaymentPage() {
             <p>
               <strong>Адрес на еконт:</strong> {shippingData.econtOffice}
             </p>
+            {shippingData.comment && (
+              <div className="mt-4 pt-4 border-t">
+                <p className="text-sm font-medium mb-1">Коментар:</p>
+                <p className="text-sm text-gray-700 whitespace-pre-wrap">
+                  {shippingData.comment}
+                </p>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -149,12 +163,12 @@ export default function PaymentPage() {
             <div className="mt-4 border-t pt-2 text-lg font-semibold mb-6">
               Общо: {(total / 100).toFixed(2)} €
             </div>
-            
+
             <div className="space-y-4">
               <p className="text-lg font-semibold text-gray-800 mb-4">
                 Изберете начин на плащане
               </p>
-              
+
               <form
                 action={checkoutAction}
                 onSubmit={(e) => {
@@ -162,30 +176,32 @@ export default function PaymentPage() {
                   sessionStorage.setItem("orderItems", JSON.stringify(items));
                 }}
               >
-                <input type="hidden" name="items" value={JSON.stringify(items)} />
+                <input
+                  type="hidden"
+                  name="items"
+                  value={JSON.stringify(items)}
+                />
                 <input
                   type="hidden"
                   name="shippingData"
                   value={JSON.stringify(shippingData)}
                 />
-                <Button 
-                  type="submit" 
-                  variant="default"
-                  className="w-full"
-                >
+                <Button type="submit" variant="default" className="w-full">
                   Плащане с карта
                 </Button>
               </form>
-              
+
               <Button
                 onClick={handleCashOnDelivery}
                 disabled={isProcessingCashOnDelivery}
                 variant="default"
                 className="w-full"
               >
-                {isProcessingCashOnDelivery ? "Обработва се..." : "Наложен платеж и капаро по EasyPay"}
+                {isProcessingCashOnDelivery
+                  ? "Обработва се..."
+                  : "Наложен платеж и капаро по EasyPay"}
               </Button>
-              
+
               <Button
                 onClick={() => router.push("/checkout/shipping")}
                 variant="outline"

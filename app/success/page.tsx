@@ -13,6 +13,7 @@ interface ShippingData {
   city: string;
   postalCode: string;
   econtOffice: string;
+  comment?: string;
 }
 
 function SuccessPageContent() {
@@ -77,6 +78,7 @@ function SuccessPageContent() {
           city: shippingData.city,
           postalCode: shippingData.postalCode,
           econtOffice: shippingData.econtOffice,
+          comment: shippingData.comment || "",
           items: currentItems,
           total: total,
         };
@@ -181,11 +183,6 @@ function SuccessPageContent() {
         </div>
       </div>
 
-      {emailSent && (
-        <div className="mt-6 p-4 bg-green-50 border-2 border-green-200 rounded-2xl text-green-700 text-center">
-          Имейл с детайли за поръчката е изпратен успешно.
-        </div>
-      )}
       {emailError && (
         <div className="mt-6 p-4 bg-yellow-50 border-2 border-yellow-200 rounded-2xl text-yellow-700 text-center">
           Поръчката е успешна, но има проблем с изпращането на имейл. Моля,

@@ -17,6 +17,7 @@ export default function ShippingPage() {
     city: "",
     postalCode: "",
     econtOffice: "",
+    comment: "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -42,6 +43,8 @@ export default function ShippingPage() {
     }
     if (!formData.phone.trim()) {
       newErrors.phone = "Телефонният номер е задължителен";
+    } else if (formData.phone.trim().length < 10) {
+      newErrors.phone = "Телефонният номер трябва да е поне 10 символа";
     }
     if (!formData.city.trim()) {
       newErrors.city = "Градът е задължителен";
@@ -94,9 +97,7 @@ export default function ShippingPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">
-        Данни за доставка
-      </h1>
+      <h1 className="text-3xl font-bold mb-8 text-center">Данни за доставка</h1>
       <div className="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <Card>
           <CardHeader>
@@ -105,7 +106,10 @@ export default function ShippingPage() {
           <CardContent>
             <ul className="space-y-3">
               {items.map((item, index) => (
-                <li key={`${item.id}-${index}-${item.childName || ''}`} className="flex justify-between border-b pb-2">
+                <li
+                  key={`${item.id}-${index}-${item.childName || ""}`}
+                  className="flex justify-between border-b pb-2"
+                >
                   <div className="flex flex-col">
                     <span className="font-medium">{item.name}</span>
                     {item.childName && (
@@ -115,7 +119,8 @@ export default function ShippingPage() {
                     )}
                   </div>
                   <span className="font-semibold">
-                    {item.quantity} x {((item.price * item.quantity) / 100).toFixed(2)} €
+                    {item.quantity} x{" "}
+                    {((item.price * item.quantity) / 100).toFixed(2)} €
                   </span>
                 </li>
               ))}
@@ -153,7 +158,9 @@ export default function ShippingPage() {
                   placeholder="Въведете име"
                 />
                 {errors.firstName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.firstName}
+                  </p>
                 )}
               </div>
 
@@ -227,7 +234,10 @@ export default function ShippingPage() {
               </div>
 
               <div>
-                <label htmlFor="city" className="block text-sm font-medium mb-1">
+                <label
+                  htmlFor="city"
+                  className="block text-sm font-medium mb-1"
+                >
                   Град <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -287,13 +297,31 @@ export default function ShippingPage() {
                   className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black ${
                     errors.econtOffice ? "border-red-500" : "border-gray-300"
                   }`}
-                  placeholder="Например: София, ул. Примерна 1, офис 5"
+                  placeholder="Например: София, ул. Примерна 1, офис 5."
                 />
                 {errors.econtOffice && (
                   <p className="text-red-500 text-sm mt-1">
                     {errors.econtOffice}
                   </p>
                 )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="comment"
+                  className="block text-sm font-medium mb-1"
+                >
+                  Коментар
+                </label>
+                <textarea
+                  id="comment"
+                  name="comment"
+                  value={formData.comment}
+                  onChange={handleChange}
+                  rows={4}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+                  placeholder="Допълнителни бележки или коментари (опционално)"
+                />
               </div>
 
               <div className="flex gap-4 pt-4">
@@ -316,4 +344,3 @@ export default function ShippingPage() {
     </div>
   );
 }
-

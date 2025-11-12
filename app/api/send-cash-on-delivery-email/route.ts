@@ -25,6 +25,7 @@ export async function POST(request: Request) {
       city,
       postalCode,
       econtOffice,
+      comment,
       items,
       total
     } = body;
@@ -87,6 +88,12 @@ export async function POST(request: Request) {
             <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Адрес на офис на еконт:</strong></td>
             <td style="padding: 8px; border: 1px solid #ddd;">${econtOffice || 'Не е посочен'}</td>
           </tr>
+          ${comment ? `
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd; background-color: #f9f9f9;"><strong>Коментар:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${comment.replace(/\n/g, '<br>')}</td>
+          </tr>
+          ` : ''}
         </table>
 
         <h3 style="color: #555; margin-top: 20px;">Поръчани продукти:</h3>
