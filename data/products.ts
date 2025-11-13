@@ -432,7 +432,6 @@ export const lampProducts: Stripe.Product[] = [
 export const allProducts: Stripe.Product[] = [
   ...ceramicProducts,
   ...lampProducts,
-  ...testProducts,
 ];
 
 // Експорт по категории
